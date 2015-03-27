@@ -4,16 +4,9 @@ def statystyka(napis)
 	tablica = napis.split
 	#p tablica
 	liczydlo = {}
-	
 		tablica.each do |klucz|
 			#puts klucz
-			if liczydlo[klucz] == nil
-				liczydlo[klucz] = 1
-			else 
-				liczydlo[klucz] = liczydlo[klucz]+1		
-				
-			end
-			
+			liczydlo[klucz] = (liczydlo[klucz] == nil)? 1: liczydlo[klucz]+1		
 		end
 	liczydlo.each do |klucz,wartosc|
 	#puts klucz+" "+wartosc.to_s
