@@ -17,18 +17,18 @@ class Human
 end
 
 def looking_for_fatty(container)
-	highest_weight = container[0].weight
-	fat_name = container[0].name
+	if container.length <=0
+		fat_name = ""
+	else
+		highest_weight = container[0].weight
+		fat_name = container[0].name
+	
 		container.each do |prisoner|
-			#prisoner.introducing
-			if prisoner.weight > highest_weight
+			if prisoner.weight.to_i >= highest_weight.to_i
 				fat_name = prisoner.name
 				highest_weight = prisoner.weight
 			end	
-			
-			#jesli waga prisonera jest wieksza niz zapamietana
-			# -> zapisz jego wage i imie
 		end
-		#p "The fattest human in this cage is " +fat_name+ "."
+	end
 	return fat_name
 end
