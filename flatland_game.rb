@@ -13,7 +13,17 @@ class Player
   end
 
   def move(direction)
-    return nil
+	case direction.to_s
+		when 'right'
+		@x = @x+1
+		when 'left'
+		@x = @x-1
+		when 'up'
+		@y = @y+1
+		when 'down'
+		@y = @y-1
+	end
+    return @x,@y
   end
 end
 
