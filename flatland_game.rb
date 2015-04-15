@@ -1,5 +1,5 @@
 class Player
-  def initialize(x = 0, y = 0)
+  def initialize(x = 0, y = 0, id = 0)
 	@x = x
 	@y = y
   end
@@ -24,6 +24,27 @@ class Player
 		@y = @y-1
 	end
     return @x,@y
+  end 
+
+  def get_id()
   end
+
+end
+
+class Game
+  def add_player(player)
+  end
+
+  def get_players()
+    return []
+  end
+
+  def get_player(id)
+    return Player.new
+  end
+
+  def move_player(player_id, direction)
+  end
+
 end
 
