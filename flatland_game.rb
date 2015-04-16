@@ -28,26 +28,31 @@ class Player
   end 
 
   def get_id()
-	@ids = ids
-	ids = []
-	ids << @id
 	return @id
   end
 
 end
 
-class Game
+class Game 
   def add_player(player)
 	@player = player
 	return true
   end
 
   def get_players()
-	gamers = []
-	#unless @ids.include?@id
-		#gamers << @player
-	#end
-    return gamers
+	@gamers = [] unless @gamers
+	@ids = [] unless @ids
+	unless @player ==nil
+		@ids << @player.get_id()
+		p "print ids"
+		p @ids
+			if @ids.include?(@player.get_id())
+				@gamers << @player
+			end
+		p "print gamers"
+		p @gamers
+	end
+    return @gamers
   end
 
   def get_player(id)
