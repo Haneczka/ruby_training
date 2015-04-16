@@ -2,6 +2,7 @@ class Player
   def initialize(x = 0, y = 0, id = 0)
 	@x = x
 	@y = y
+	@id = id
   end
 
   def get_x_position()
@@ -27,16 +28,26 @@ class Player
   end 
 
   def get_id()
+	@ids = ids
+	ids = []
+	ids << @id
+	return @id
   end
 
 end
 
 class Game
   def add_player(player)
+	@player = player
+	return true
   end
 
   def get_players()
-    return []
+	gamers = []
+	#unless @ids.include?@id
+		#gamers << @player
+	#end
+    return gamers
   end
 
   def get_player(id)
