@@ -79,5 +79,14 @@ should_be_equal(false, game.move_player(5, 'up'))
 should_be_equal(1, game.get_player(3).get_x_position())
 should_be_equal(3, game.get_player(3).get_y_position())
 
+#Test adding to the map another object (wall) 
+game = Game.new
+wall1 = Wall.new(1,2,3, 5)
+should_be_equal(5, wall1.get_durability)
+should_be_equal(1, wall1.get_x_position)
+should_be_equal(3, wall1.get_id)
+
+
+
 #Tests summary
 puts "\n"+$tests_stat[:passed].to_s+"/"+$tests_stat[:all].to_s+" tests passed."
