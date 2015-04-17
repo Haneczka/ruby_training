@@ -33,7 +33,10 @@ class Player
 
 end
 
-class Game 
+class Game
+	#def initialize()
+		#@gamers = []
+	#end
   def add_player(player)
 	@player = player
 	@gamers = [] unless @gamers
@@ -55,10 +58,17 @@ class Game
   end
 
   def get_player(id)
-    return Player.new
+	@id = id
+	
+    return @player
   end
 
   def move_player(player_id, direction)
+		@player_id = @player.get_id()
+		@direction = direction 
+		@player.move(@direction)
+		
+  return true
   end
 
 end
