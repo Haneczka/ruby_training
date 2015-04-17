@@ -55,14 +55,11 @@ class Game
 	@gamers = [] unless @gamers
     return @gamers
   end
+  
 
+  
   def get_player(id)
-	@gamers.each do |player|
-		if player.get_id() == id
-			return player
-		end
-	end
-    return nil
+    @gamers.select { |p| p.get_id()==id }.first
   end
 
  def move_player(player_id, direction)
@@ -73,7 +70,16 @@ class Game
 		player.move(direction)
 		return true
 	 end
-
- end
+  end
+  
+ private
+ 
+  def is_already_player_in_database (id)
+    if @gamers.select { |p| p.get_id()==id }.first != nil
+      return true
+    else
+      return false
+    end
+  end
 
 end
