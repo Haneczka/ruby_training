@@ -38,13 +38,12 @@ class Game
 		#@gamers = []
 	#end
   def add_player(player)
-	@player = player
 	@gamers = [] unless @gamers
-	unless @player == nil
+	unless player == nil
   	@ids = [] unless @ids
-		unless @ids.include?(@player.get_id())
-			@ids << @player.get_id()
-			@gamers <<player
+		unless @ids.include?(player.get_id())
+			@ids << player.get_id()
+			@gamers << player
 			return true
 		else
 			return false
@@ -58,18 +57,23 @@ class Game
   end
 
   def get_player(id)
-	@id = id
-	
-    return @player
+	@gamers.each do |player|
+		if player.get_id() == id
+			return player
+		end
+	end
+    return nil
   end
 
-  def move_player(player_id, direction)
-		@player_id = @player.get_id()
-		@direction = direction 
-		@player.move(@direction)
-		
-  return true
-  end
+ def move_player(player_id, direction)
+	if get_player(player_id) == nil
+		return false
+	else 
+		player = get_player(player_id)
+		player.move(direction)
+		return true
+	 end
+
+ end
 
 end
-
