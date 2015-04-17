@@ -59,13 +59,13 @@ class Game
 	#def initialize()
 		#@gamers = []
 	#end
-  def add_player(player)
-	@gamers = [] unless @gamers
-	unless player == nil
+  def add_object(object)
+	@objects = [] unless @objects
+	unless object == nil
   	@ids = [] unless @ids
-		unless @ids.include?(player.get_id())
-			@ids << player.get_id()
-			@gamers << player
+		unless @ids.include?(object.get_id())
+			@ids << object.get_id()
+			@objects << object
 			return true
 		else
 			return false
@@ -73,31 +73,29 @@ class Game
 	end
   end
 
-  def get_players()
-	@gamers = [] unless @gamers
-    return @gamers
+  def get_all_objects()
+	@objects = [] unless @objects
+    return @objects
   end
   
-
-  
-  def get_player(id)
-    @gamers.select { |p| p.get_id()==id }.first
+  def get_object(id)
+    @objects.select { |p| p.get_id()==id }.first
   end
 
- def move_player(player_id, direction)
-	if get_player(player_id) == nil
+ def move_object(object_id, direction)
+	if get_object(object_id) == nil
 		return false
 	else 
-		player = get_player(player_id)
-		player.move(direction)
+		object = get_object(object_id)
+		object.move(direction)
 		return true
 	 end
   end
   
  private
  
-  def is_already_player_in_database (id)
-    if @gamers.select { |p| p.get_id()==id }.first != nil
+  def is_already_object_in_database (id)
+    if @objects.select { |p| p.get_id()==id }.first != nil
       return true
     else
       return false

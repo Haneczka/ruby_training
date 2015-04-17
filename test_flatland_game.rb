@@ -50,34 +50,34 @@ should_be_equal(1, player1.get_y_position())
 
 #Test game default initialization
 game  = Game.new
-should_be_equal([], game.get_players())
+should_be_equal([], game.get_all_objects())
 
 #Test adding and getting players to/from game
 game = Game.new
 player1 = Player.new(2,2,0)
-should_be_equal(true, game.add_player(player1))
-should_be_equal(1, game.get_players().count)
+should_be_equal(true, game.add_object(player1))
+should_be_equal(1, game.get_all_objects().count)
 
 #Test player id duplication
 game = Game.new
 player1 = Player.new(2,2,0)
-should_be_equal(true, game.add_player(player1))
-should_be_equal(1, game.get_players().count)
+should_be_equal(true, game.add_object(player1))
+should_be_equal(1, game.get_all_objects().count)
 player2 = Player.new(1,1,1)
-should_be_equal(true, game.add_player(player2))
-should_be_equal(2, game.get_players().count)
+should_be_equal(true, game.add_object(player2))
+should_be_equal(2, game.get_all_objects().count)
 player3 = Player.new(3,3,1)
-should_be_equal(false, game.add_player(player3)) #duplicated id
-should_be_equal(2, game.get_players().count)
+should_be_equal(false, game.add_object(player3)) #duplicated id
+should_be_equal(2, game.get_all_objects().count)
 
 #Test moving player in game
 game = Game.new
-game.add_player(Player.new(1,2,3))
-game.add_player(Player.new(6,7,8))
-should_be_equal(true, game.move_player(3, 'up'))
-should_be_equal(false, game.move_player(5, 'up'))
-should_be_equal(1, game.get_player(3).get_x_position())
-should_be_equal(3, game.get_player(3).get_y_position())
+game.add_object(Player.new(1,2,3))
+game.add_object(Player.new(6,7,8))
+should_be_equal(true, game.move_object(3, 'up'))
+should_be_equal(false, game.move_object(5, 'up'))
+should_be_equal(1, game.get_object(3).get_x_position())
+should_be_equal(3, game.get_object(3).get_y_position())
 
 #Test adding to the map another object (wall) 
 game = Game.new
