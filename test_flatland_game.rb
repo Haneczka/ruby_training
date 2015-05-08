@@ -28,23 +28,28 @@ should_be_equal(1, player1.get_x_position())
 should_be_equal(5, player1.get_y_position())
 
 #Test player movement
-player1 = Player.new(2,2)
-player1.move('right')
+game  = Game.new
+player1 = Player.new(2,2,1)
+game.add_object(player1)
+game.move_object(1, 'right')
 should_be_equal(3, player1.get_x_position())
 should_be_equal(2, player1.get_y_position())
 
-player1 = Player.new(2,2)
-player1.move('left')
+player1 = Player.new(2,2,2)
+game.add_object(player1)
+game.move_object(2,'left')
 should_be_equal(1, player1.get_x_position())
 should_be_equal(2, player1.get_y_position())
 
-player1 = Player.new(2,2)
-player1.move('up')
+player1 = Player.new(2,2,3)
+game.add_object(player1)
+game.move_object(3,'up')
 should_be_equal(2, player1.get_x_position())
 should_be_equal(3, player1.get_y_position())
 
-player1 = Player.new(2,2)
-player1.move('down')
+player1 = Player.new(2,2,4)
+game.add_object(player1)
+game.move_object(4,'down')
 should_be_equal(2, player1.get_x_position())
 should_be_equal(1, player1.get_y_position())
 
@@ -86,6 +91,14 @@ should_be_equal(5, wall1.get_durability)
 should_be_equal(1, wall1.get_x_position)
 should_be_equal(3, wall1.get_id)
 
+#Test player can't go through walls (can he?)
+game = Game.new
+wall1 = Wall.new(2,3,0,5)
+player1 = Player.new(3,3,1)
+game.add_object(wall1)
+game.add_object(player1)
+should_be_equal(false , game.move_object(1, 'left'))
+should_be_equal(3, player1.get_x_position)
 
 
 #Tests summary

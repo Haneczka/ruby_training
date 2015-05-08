@@ -39,20 +39,14 @@ end
 
 class Player < ObjectOnMap
 
-  def move(direction)
-	case direction.to_s
-		when 'right'
-		@x = @x+1
-		when 'left'
-		@x = @x-1
-		when 'up'
-		@y = @y+1
-		when 'down'
-		@y = @y-1
-	end
-    return @x,@y
-  end 
-
+  def set_x_position(x)
+    @x = x 
+  end
+  
+  def set_y_position(y)
+    @y = y 
+  end
+ 
 end
 
 class Game
@@ -61,6 +55,10 @@ class Game
 	#end
   def add_object(object)
 	@objects = [] unless @objects
+    if object.is_a?(Wall)
+      @wall_position = object.get_x_position
+    end
+  
 	unless object == nil
   	@ids = [] unless @ids
 		unless @ids.include?(object.get_id())
@@ -83,16 +81,35 @@ class Game
   end
 
  def move_object(object_id, direction)
-	if get_object(object_id) == nil
-		return false
-	else 
-		object = get_object(object_id)
-		object.move(direction)
-		return true
-	 end
+    if get_object(object_id) == nil
+      return false
+    else 
+      #object = get_object(object_id)
+      move(object_id, direction)
+       #if object.get_x_position = @wall_position
+       # return false
+       #end
+      return true
+     end
   end
+ 
+private
+ 
+  def move(object_id, direction)
+    object = get_object(object_id)
+    case direction.to_s
+      when 'right'
+      object.set_x_position(object.get_x_position+1)
+      when 'left'
+      object.set_x_position(object.get_x_position-1)
+      when 'up'
+      object.set_y_position(object.get_y_position+1)
+      when 'down'
+      object.set_y_position(object.get_y_position-1)
+    end
+    return true
+  end 
   
- private
  
   def is_already_object_in_database (id)
     if @objects.select { |p| p.get_id()==id }.first != nil
@@ -103,3 +120,9 @@ class Game
   end
 
 end
+
+
+#zanim poruszę sprawdzam czy proponowana miejscówka jest wolna (iteruję po @objects)
+#jeśli jest wolna wykonuję move na playerze (set_position), jeśli  nie, zwracam false , a położenie playera pozostaje nie zmienione
+
+# przenieść funkcję move do gry, a playerowi wprowadzić set_position 
