@@ -50,25 +50,30 @@ class Player < ObjectOnMap
 end
 
 class Game
-	#def initialize()
-		#@gamers = []
-	#end
-  def add_object(object)
-	@objects = [] unless @objects
-    if object.is_a?(Wall)
-      @wall_position = object.get_x_position
-    end
-  
-	unless object == nil
-  	@ids = [] unless @ids
-		unless @ids.include?(object.get_id())
-			@ids << object.get_id()
-			@objects << object
-			return true
-		else
-			return false
-		end
+	def initialize()
 	end
+ 
+  
+  def add_object(object)
+    #if unless object == nil
+    #@objects<<object
+      #if object.is_a?(Wall)
+        #@wall_position = object.get_x_position
+      #end
+    #end
+    
+    unless object == nil
+     @ids = [] unless @ids
+     @objects = [] unless @objects
+      unless @ids.include?(object.get_id())
+        @ids << object.get_id()
+        @objects << object
+        return true
+      else
+        return false
+      end
+    end
+    
   end
 
   def get_all_objects()
@@ -83,31 +88,90 @@ class Game
  def move_object(object_id, direction)
     if get_object(object_id) == nil
       return false
-    else 
+    else
       #object = get_object(object_id)
-      move(object_id, direction)
+      if move(object_id, direction) == false
+        return false
+      else
+        return true
+      end
        #if object.get_x_position = @wall_position
        # return false
-       #end
-      return true
-     end
+       #end  
+    end
   end
  
 private
- 
-  def move(object_id, direction)
+  #def check_if_it_is_free (object)
+      #taken = {} unless taken
+      #expected = {}
+      #object.get_x_position
+      #object.get_y_position
+        #@objects.each do |obj|
+        #taken = {obj.get_x_position => obj.get_y_position}
+        #end
+        #expected = {object.get_x_position => object.get_y_position}
+        #if taken.detect {|key,val| val == object.get_y_position} == [:object.get_x_position, object.get_y_position]
+          #return false
+        #else
+           #case direction.to_s
+            #when 'right'
+            #object.set_x_position(object.get_x_position+1) 
+            #when 'left'
+            #object.set_x_position(object.get_x_position-1)
+            #when 'up'
+            #object.set_y_position(object.get_y_position+1)
+            #when 'down'
+            #object.set_y_position(object.get_y_position-1)
+           #end
+        #end   
+  #end
+  
+  #def speculating (current_location)
+    #case @direction.to_s
+      #when 'right'
+      #@new_x = @current_x+1
+      #when 'left'
+      #@new_x = @current_x-1
+      #when 'up'
+      #@new_y = @current_y+1
+      #when 'down'
+      #@new_y = @current_y-1
+    #end
+    #return @new_x, @new_y
+  #end 
+
+  def move(object_id,direction)
     object = get_object(object_id)
+    @new_x = object.get_x_position
+    @new_y = object.get_y_position
+    
     case direction.to_s
       when 'right'
-      object.set_x_position(object.get_x_position+1)
+      @new_x = object.get_x_position+1
       when 'left'
-      object.set_x_position(object.get_x_position-1)
+      @new_x = object.get_x_position-1
       when 'up'
-      object.set_y_position(object.get_y_position+1)
+      @new_y = object.get_y_position+1
       when 'down'
-      object.set_y_position(object.get_y_position-1)
+      @new_y = object.get_y_position-1
     end
-    return true
+    
+    @objects.each do |obj|
+    
+      if obj.get_x_position == @new_x
+        if obj.get_y_position == @new_y
+         return false
+        else 
+          object.set_x_position(@new_x)
+          object.set_y_position(@new_y)
+        end 
+      else 
+        object.set_x_position(@new_x)
+        object.set_y_position(object.get_y_position)
+      end 
+      
+    end
   end 
   
  
@@ -119,6 +183,7 @@ private
     end
   end
 
+  
 end
 
 
