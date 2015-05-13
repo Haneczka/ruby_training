@@ -84,7 +84,7 @@ should_be_equal(false, game.move_object(5, 'up'))
 should_be_equal(1, game.get_object(3).get_x_position())
 should_be_equal(3, game.get_object(3).get_y_position())
 
-#Test adding to the map another object (wall) 
+#Test adding to the map another object (wall)
 game = Game.new
 wall1 = Wall.new(1,2,3, 5)
 should_be_equal(5, wall1.get_durability)
@@ -97,8 +97,14 @@ wall1 = Wall.new(2,3,0,5)
 player1 = Player.new(3,3,1)
 game.add_object(wall1)
 game.add_object(player1)
-should_be_equal(false , game.move_object(1, 'left'))
-should_be_equal(3, player1.get_x_position)
+should_be_equal(false , game.move_object(1, 'left')) #wall on the way
+should_be_equal(3, game.get_object(1).get_x_position)
+should_be_equal(3, game.get_object(1).get_y_position)
+should_be_equal(true , game.move_object(1, 'right'))
+should_be_equal(4, game.get_object(1).get_x_position)
+should_be_equal(3, game.get_object(1).get_y_position)
+should_be_equal(true , game.move_object(1, 'left'))
+should_be_equal(false , game.move_object(1, 'left')) #wall on the way
 
 
 #Tests summary
