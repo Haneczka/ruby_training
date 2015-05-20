@@ -55,25 +55,21 @@ class Game
   
   
   def add_object(object)
-    #if unless object == nil
-    #@objects<<object
-    #if object.is_a?(Wall)
-    #@wall_position = object.get_x_position
-    #end
-    #end
- 
-    unless object == nil
-      @ids = [] unless @ids
-      @objects = [] unless @objects
-      unless @ids.include?(object.get_id())
-        @ids << object.get_id()
-        @objects << object
-        return true
-        else
-        return false
+    if is_occupied?(object.get_x_position,object.get_y_position) == true
+      return false
+    else
+      unless object == nil
+        @ids = [] unless @ids
+        @objects = [] unless @objects
+        unless @ids.include?(object.get_id())
+          @ids << object.get_id()
+          @objects << object
+          return true
+          else
+          return false
+        end
       end
     end
-    
   end
   
   def get_all_objects()
@@ -100,6 +96,7 @@ class Game
   
   private
   def move(object_id,direction)
+    
     object = get_object(object_id)
     new_x = object.get_x_position
     new_y = object.get_y_position
@@ -118,19 +115,27 @@ class Game
       new_y = object.get_y_position
     end
     
-    
-    @objects.each do |obj|
-      if obj.get_x_position == new_x and obj.get_y_position == new_y
-        return false
-      end
+    if is_occupied?(new_x,new_y) == true
+      return false
     end
-  
+    
     object.set_x_position(new_x)
     object.set_y_position(new_y)
     
     return true
   end 
-  
+          
+  def is_occupied?(x,y)
+    unless @objects == nil
+      @objects.each do |obj|
+        if obj.get_x_position == x and obj.get_y_position == y
+          return true
+        else
+          return false
+        end
+      end
+    end
+  end
   
   def is_already_object_in_database (id)
     if @objects.select { |p| p.get_id()==id }.first != nil

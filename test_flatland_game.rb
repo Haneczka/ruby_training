@@ -106,6 +106,12 @@ should_be_equal(3, game.get_object(1).get_y_position)
 should_be_equal(true , game.move_object(1, 'left'))
 should_be_equal(false , game.move_object(1, 'left')) #wall on the way
 
+#Test adding wall on occupied place
+game = Game.new
+wall1 = Wall.new(2,3,0,5)
+wall2 = Wall.new(2,3,1,3)
+should_be_equal(true,game.add_object(wall1))
+should_be_equal(false,game.add_object(wall2))
 
 #Tests summary
 puts "\n"+$tests_stat[:passed].to_s+"/"+$tests_stat[:all].to_s+" tests passed."
